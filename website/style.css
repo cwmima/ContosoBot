@@ -1,0 +1,268 @@
+body{
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
+/*#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: 0.2;
+
+}
+*/
+.home-title{
+    font-size: 50px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color:#16566a;
+}
+.transparent{
+  background:rgba(255,255,255,0.5);
+}
+.title{
+    padding-top: 10px;
+    font-size: xx-large;
+}
+.not-active{
+    pointer-events: none;
+   cursor: default;
+}
+.questions-nav{
+    margin-bottom: 15px;
+}
+.questions{
+    padding-left: 20px;
+    font-size: 16px;
+}
+#submission-confirm{
+    display: none;
+}
+#submission-succes{
+    text-align: center;
+    display: none;
+}
+#submit-btn{
+    margin-bottom: 30px;
+    float:right;
+}
+
+.dropdown-menu li a {
+    word-wrap: break-word;
+    white-space: normal;
+}
+.right-part{
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    width: 450px;
+}
+#live-chat{
+    height: 100%;
+}
+#live-chat-toggle{
+    position: absolute;
+    left: 350px;
+}
+#chat-box{
+    height:500px;
+    width: 100%;
+    overflow-y: scroll;
+}
+.right-part .input-group{
+
+}
+.back-btn{
+    display: inline-block;
+}
+.navbar-default {
+    background-color: #5bc0de;
+}
+ .navbar-default .navbar-header > a,
+  .navbar-default .navbar-nav > li > a {
+    color:white;
+}
+ .navbar-default .navbar-header > a:hover,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #16566a;
+}
+
+#case-navbar{
+    position:absolute;
+    top:20px;
+    left:0px;
+}
+#case-navbar > li > a {
+    color: #16566a;
+}
+#case-navbar > li.active > a {
+    background-color: #d9edf7;
+}
+#case-navbar > li.active{
+    border-color: #c0e1f2;
+    border-style:solid;
+    border-width:2px;
+    border-radius: 6px;
+}
+
+
+.calendar{
+    display: block;
+    padding-top: 10px;
+    max-width:500px;
+    max-height:300px;
+}
+.calendar ul {list-style-type: none;}
+/* Month header */
+.month {
+    padding: 70px 25px;
+    width: 100%;
+    background: #ffaa00;
+}
+
+/* Month list */
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Previous button inside month header */
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+
+/* Next button */
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color:#ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+
+/* Days (1-31) */
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+}
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:12px;
+    color:#777;
+}
+
+/* Highlight the "current" day */
+.days li .active {
+    padding: 5px;
+    background: #ffaa00;
+    color: white !important
+}
+/*#response_area{
+    border: 2px solid black;
+    border-radius:10px;
+    padding:1.5em;
+    margin:1.5em;
+}
+
+.two-wide > * {
+    display:inline-block;
+    width:49%;
+    vertical-align:top;
+}
+
+//#########################################
+//                FORM
+//########################################
+form.submission-form{
+
+}
+form.submission-form div{
+
+}
+form.submission-form div label{
+    vertical-align: top;
+    width:35%;
+    display:inline-block;
+    text-align:right;
+}
+form.submission-form div input,
+form.submission-form div select,
+form.submission-form div textarea{
+    width:60%;
+}
+form.submission-form button{
+    width:100%;
+    height:2em;
+}
+
+form label:after{
+    content:":";
+}
+form .required label:before{
+    content:"*";
+    color:red;
+    font-weight:bold;
+}
+
+form.submission-form input[type='checkbox']{
+    width:auto;
+}
+
+input:invalid{
+    background: rgb(255, 0, 0);
+}
+
+div.form-group.form-options{
+
+}
+div.form-group.form-options input{
+    display:inline-block;
+    width:auto;
+    margin-left:1em;
+}
+div.form-group.form-options label{
+    display:inline-block;
+}
+div.form-group.form-options label:after{
+    content:"";
+}
+
+.red-text{
+    color:#FF0000;
+}
+
+
+input:valid{
+    
+}*/

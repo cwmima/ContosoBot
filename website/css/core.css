@@ -1,0 +1,39 @@
+body{
+	background:#fff;
+	margin:0;
+}
+#topbar{
+	width:100%;
+	background:#fcfdfc;
+	height:150px;
+
+	margin:0;
+	padding: 0px 130px 0px 130px;
+
+	position:absolute;
+	top:0;
+	left:0;
+
+	border-bottom: 3px #aaa;
+	box-shadow: 0 10px 15px -10px rgba(0,0,0,.08)
+}
+#topbar ul{
+	display:inline;
+}
+#topbar ul li{
+	display:inline;
+}
+
+#nav-home img{
+	height:100px;
+}
+
+#core-container{
+	margin:150px 15%;
+	padding:30px 20px;
+	background:#fff;
+	height:100%;
+
+	border: 4px black solid;
+	box-shadow: 0 0 2em 2em rgba(0,0,0,0.1)
+}

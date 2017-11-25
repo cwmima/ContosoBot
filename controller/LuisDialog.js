@@ -1,5 +1,6 @@
 var builder = require('botbuilder');
 var qna = require('./QnAMaker');
+var exchange = require('./ExchangeRateCard');
 
 exports.startDialog = function (bot) {
 
@@ -55,14 +56,25 @@ exports.startDialog = function (bot) {
             var amount = builder.EntityRecognizer.findEntity(args.intent.entities, 'amount');
 
             if (fromCurrency) {
+                fromCurrency = fromCurrency.entity.toUpperCase();
                 if(toCurrency){
+                    toCurrency = toCurrency.entity.toUpperCase();
                     if(amount){
-                        session.send('Converting %s %s to %s...', amount.entity.replace(/\s/g, ''), fromCurrency.entity, toCurrency.entity);
+                        amount = amount.entity.replace(/\s/g, '');
+                        amount = parseFloat(amount);
+
+                        if(isNaN(amount)){
+                            session.send("The amount of currency is not a number. Please try again.");
+                        }else{
+                            session.send('Converting %s %s to %s...', amount, fromCurrency, toCurrency);
+                            exchange.displayExchangeRateCard(session, amount, fromCurrency, toCurrency);
+                        }
                     }else{
-                        session.send('Converting %s to %s...', fromCurrency.entity, toCurrency.entity);
+                        session.send('Converting %s to %s...', fromCurrency, toCurrency);
+                        exchange.displayExchangeRateCard(session, 1, fromCurrency, toCurrency);
                     }
                 }else{
-                    session.send('Looking up exchange rates of %s...', fromCurrency.entity);
+                    session.send('Looking up exchange rates of %s...', fromCurrency);
                 }
             } else {
                 session.send("No currency code identified! Please try again.");

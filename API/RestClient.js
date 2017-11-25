@@ -23,4 +23,15 @@ exports.postQnAResults = function getData(url, session, question, callback){
         }
     });
   };
+
+  exports.getExchangeRate = function getData(url, session, amount, fromCurrency, toCurrency, callback){
+        // GET method
+        request.get(url, function(err, res, body){
+            if(err){
+                console.log(err);
+            }else {
+                callback(body, session, amount, fromCurrency, toCurrency);
+            }
+        });
+    };
   

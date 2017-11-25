@@ -7,16 +7,27 @@ exports.startDialog = function (bot) {
 
     bot.recognizer(recognizer);
 
-    bot.dialog('greetings', [
-        // Step 1
-        function (session) {
-            builder.Prompts.text(session, 'Hi! What is your name?');
-        },
-        // Step 2
-        function (session, results) {
-            session.endDialog(`Hello ${results.response}!`);
+    bot.on('conversationUpdate', function (message) {
+        if (message.membersAdded) {
+            message.membersAdded.forEach(function (identity) {
+                // Bot is joining conversation
+                if (identity.id === message.address.bot.id) {
+                    var greeting = new builder.Message()
+                    .address(message.address)
+                    .text("Welcome to use Contoso Bot! You can check the following hints on how to use this chat bot :)");
+                    bot.send(greeting);
+
+                    bot.beginDialog(message.address, 'menu');
+                }
+            });
         }
-    ]);
+    });
+
+    bot.dialog('menu', function (session) {
+            // builder.Prompts.text(session, 'Hi! What is your name?');
+            session.send("This is the menu.");
+        }
+    );
 
     bot.dialog('QnA', function (session, args, next) {
             //console.log(args["intent"]['score']);
@@ -26,8 +37,12 @@ exports.startDialog = function (bot) {
     ).triggerAction({
         onFindAction: function(context, callback){
             var n = 0;
-            if(context.intent.score < 0.9){
-                n = 1;
+            // console.log(context);
+            // console.log(context.intent);
+            if(context.intent != null){
+                if(context.intent.score < 0.9){
+                    n = 1;
+                }
             }
             callback(null, n);
         }

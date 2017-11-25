@@ -10,31 +10,89 @@ exports.displayExchangeRateCard = function (session, amount, fromCurrency, toCur
 function displayExchangeRateCard(message, session, amount, fromCurrency, toCurrency){
 
     var exchangeRateList = JSON.parse(message).rates;    
-    var exchangeRate = exchangeRateList[toCurrency];
-    var result = Math.round(exchangeRate * amount * 100) / 100;
-        
-    session.send(new builder.Message(session).addAttachment({
-        contentType: "application/vnd.microsoft.card.adaptive",
-        content: {
-            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-            "type": "AdaptiveCard",
-            "version": "1.0",
-            "body": [
-                {
-                    "type": "Container",
-                    "items": [
-                        {
-                            "type": "TextBlock",
-                            "text": amount + " " + fromCurrency + " = ",
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "**" + result + "** "+ toCurrency,
-                            "size": "large"
-                        }
-                    ]
-                }
-            ]
+
+    if (toCurrency){
+        var exchangeRate = exchangeRateList[toCurrency];
+        var result = Math.round(exchangeRate * amount * 100) / 100;
+            
+        session.send(new builder.Message(session).addAttachment({
+            contentType: "application/vnd.microsoft.card.adaptive",
+            content: {
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "type": "AdaptiveCard",
+                "version": "1.0",
+                "body": [
+                    {
+                        "type": "Container",
+                        "items": [
+                            {
+                                "type": "TextBlock",
+                                "text": amount + " " + fromCurrency + " = "
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "**" + result + "** "+ toCurrency,
+                                "size": "large"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }));
+    } else {  // if no toCurrency specified
+        var currencies = [];
+        for (var key in exchangeRateList){
+            var currencyItem = {};
+            currencyItem.title = key;
+            currencyItem.value = "" + exchangeRateList[key];
+            // console.log(currencyItem.title);
+            // console.log(currencyItem.value);
+            currencies.push(currencyItem);
         }
-    }));
+        console.log(currencies);
+        session.send(new builder.Message(session).addAttachment({
+            contentType: "application/vnd.microsoft.card.adaptive",
+            content: {
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "type": "AdaptiveCard",
+                "version": "1.0",
+                "body": [
+                    {
+                        "type": "Container",
+                        "items": [
+                            {
+                                "type": "TextBlock",
+                                "text": amount + " " + fromCurrency + " = ",
+                                "size": "large"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "spacing": "none",
+                        "items": [
+                            {
+                                "type": "ColumnSet",
+                                "columns": [
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "FactSet",
+                                                "facts": currencies,
+                                                "separator": true,
+                                                "spacing": "medium"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }));
+    }
+    
 }

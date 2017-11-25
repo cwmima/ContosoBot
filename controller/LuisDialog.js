@@ -75,6 +75,7 @@ exports.startDialog = function (bot) {
                     }
                 }else{
                     session.send('Looking up exchange rates of %s...', fromCurrency);
+                    exchange.displayExchangeRateCard(session, 1, fromCurrency, null);
                 }
             } else {
                 session.send("No currency code identified! Please try again.");

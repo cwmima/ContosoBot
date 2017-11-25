@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Wei Cheng">
+    <meta name="author" content="Gavin Cheng">
 
-    <title>Home Page</title>
+    <title>Contoso Bank - Personal & Business Banking in New Zealand</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -162,11 +162,15 @@
     
         <div class="right-part">
             <div class="panel panel-info" id="live-chat">
+                <!--
                 <div class="panel-heading">
-                    <h3 class="panel-title">Live Chat<button type="button" class="close" aria-label="Close" onclick="live_chat_close(this)"><span aria-hidden="true">&times;</span></button></h3>
-                </div>
-                <div class="panel-body">
-                    <div  class="well" id="chat-box"><p>
+                    <h3 class="panel-title">Live Chat 
+                    <button type="button" class="close" aria-label="Close" onclick="live_chat_close(this)">
+                        
+                    <span aria-hidden="true">&times;</span></button></h3>
+                </div> -->
+                <div id="chat-box">
+                    <!-- class="panel-body" <div  class="well" id="chat-box"><p>
                         <b>Paul:</b> Hello guys!<br>
                         <b>Brooklyn:</b> Hey!<br>
                     </p></div>
@@ -175,11 +179,12 @@
                         <span class="input-group-btn">
                         <button class="btn btn-default" type="button" onclick="chat_send()">Send</button>
                         </span>
-                    </div>
+                    </div> -->
+                    <iframe src='https://webchat.botframework.com/embed/food-bot1?s=xxqOHqMJUpg.cwA.nLg.TjG4dtrBLmWaL-0AKJHttt0rIdtwUxyPlMZlZCH8Ta4'></iframe>
                 </div>
             </div>
             <div>
-                <button type="button" class="btn btn-info" id="live-chat-toggle" onclick="live_chat_toggle()">Live Chat <span class="glyphicon glyphicon-triangle-top"></span></button>
+                <button type="button" class="btn btn-info" id="live-chat-toggle" onclick="live_chat_toggle()">Contoso Bot Chat <span class="glyphicon glyphicon-triangle-top"></span></button>
             </div>
         </div>
         <!-- <div class="back-btn">

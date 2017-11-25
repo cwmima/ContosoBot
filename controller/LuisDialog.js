@@ -1,4 +1,5 @@
 var builder = require('botbuilder');
+var qna = require('./QnAMaker');
 
 exports.startDialog = function (bot) {
 
@@ -6,14 +7,45 @@ exports.startDialog = function (bot) {
 
     bot.recognizer(recognizer);
 
+    bot.dialog('greetings', [
+        // Step 1
+        function (session) {
+            builder.Prompts.text(session, 'Hi! What is your name?');
+        },
+        // Step 2
+        function (session, results) {
+            session.endDialog(`Hello ${results.response}!`);
+        }
+    ]);
+
+    bot.dialog('QnA', function (session, args, next) {
+            //console.log(args["intent"]['score']);
+            session.send("Looking up your question in QnA database...");
+            qna.talkToQnA(session, session.message.text);
+        }
+    ).triggerAction({
+        onFindAction: function(context, callback){
+            var n = 0;
+            if(context.intent.score < 0.9){
+                n = 1;
+            }
+            callback(null, n);
+        }
+    });
+
     bot.dialog('CurrencyExchange', function (session, args) {
         //if (!isAttachment(session)) {
             var fromCurrency = builder.EntityRecognizer.findEntity(args.intent.entities, 'from_currency');
             var toCurrency = builder.EntityRecognizer.findEntity(args.intent.entities, 'to_currency');
+            var amount = builder.EntityRecognizer.findEntity(args.intent.entities, 'amount');
 
             if (fromCurrency) {
                 if(toCurrency){
-                    session.send('Converting %s to %s...', fromCurrency.entity, toCurrency.entity);
+                    if(amount){
+                        session.send('Converting %s %s to %s...', amount.entity.replace(/\s/g, ''), fromCurrency.entity, toCurrency.entity);
+                    }else{
+                        session.send('Converting %s to %s...', fromCurrency.entity, toCurrency.entity);
+                    }
                 }else{
                     session.send('Looking up exchange rates of %s...', fromCurrency.entity);
                 }

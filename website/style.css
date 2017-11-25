@@ -3,6 +3,19 @@ body{
     background-repeat:no-repeat;
     background-attachment: fixed;
 }
+iframe{
+    height: 100%;
+    width: 100%;
+}
+#chat-box{
+    height:500px;
+    width: 100%;
+    /*overflow-y: scroll;*/
+}
+#live-chat-toggle{
+    position: absolute;
+    left: 290px;
+}
 /*#background {
     position: fixed;
     top: 0;
@@ -65,15 +78,8 @@ body{
 #live-chat{
     height: 100%;
 }
-#live-chat-toggle{
-    position: absolute;
-    left: 350px;
-}
-#chat-box{
-    height:500px;
-    width: 100%;
-    overflow-y: scroll;
-}
+
+
 .right-part .input-group{
 
 }
@@ -188,81 +194,3 @@ body{
     background: #ffaa00;
     color: white !important
 }
-/*#response_area{
-    border: 2px solid black;
-    border-radius:10px;
-    padding:1.5em;
-    margin:1.5em;
-}
-
-.two-wide > * {
-    display:inline-block;
-    width:49%;
-    vertical-align:top;
-}
-
-//#########################################
-//                FORM
-//########################################
-form.submission-form{
-
-}
-form.submission-form div{
-
-}
-form.submission-form div label{
-    vertical-align: top;
-    width:35%;
-    display:inline-block;
-    text-align:right;
-}
-form.submission-form div input,
-form.submission-form div select,
-form.submission-form div textarea{
-    width:60%;
-}
-form.submission-form button{
-    width:100%;
-    height:2em;
-}
-
-form label:after{
-    content:":";
-}
-form .required label:before{
-    content:"*";
-    color:red;
-    font-weight:bold;
-}
-
-form.submission-form input[type='checkbox']{
-    width:auto;
-}
-
-input:invalid{
-    background: rgb(255, 0, 0);
-}
-
-div.form-group.form-options{
-
-}
-div.form-group.form-options input{
-    display:inline-block;
-    width:auto;
-    margin-left:1em;
-}
-div.form-group.form-options label{
-    display:inline-block;
-}
-div.form-group.form-options label:after{
-    content:"";
-}
-
-.red-text{
-    color:#FF0000;
-}
-
-
-input:valid{
-    
-}*/

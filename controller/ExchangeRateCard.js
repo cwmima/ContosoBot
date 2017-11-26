@@ -1,5 +1,6 @@
 var rest = require('../API/RestClient');
 var builder = require('botbuilder');
+var databaseUrl = "http://contosobotgavin.azurewebsites.net/tables/ContosoBot";
 
 exports.displayExchangeRateCard = function (session, amount, fromCurrency, toCurrency){
     var url = "https://api.fixer.io/latest?base=" + fromCurrency;
@@ -14,7 +15,12 @@ function displayExchangeRateCard(message, session, amount, fromCurrency, toCurre
     if (toCurrency){
         var exchangeRate = exchangeRateList[toCurrency];
         var result = Math.round(exchangeRate * amount * 100) / 100;
-            
+
+        // check if history recording is turned on
+        if (session.conversationData["isTurnedOn"]){
+            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, result, toCurrency);
+        }
+        
         session.send(new builder.Message(session).addAttachment({
             contentType: "application/vnd.microsoft.card.adaptive",
             content: {
@@ -40,6 +46,12 @@ function displayExchangeRateCard(message, session, amount, fromCurrency, toCurre
             }
         }));
     } else {  // if no toCurrency specified
+
+        // check if history recording is turned on
+        if (session.conversationData["isTurnedOn"]){
+            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, null, null);
+        }
+
         var currencies = [];
         for (var key in exchangeRateList){
             var currencyItem = {};

@@ -1,6 +1,7 @@
 var builder = require('botbuilder');
 var qna = require('./QnAMaker');
 var exchange = require('./ExchangeRateCard');
+var lastIntent = "";
 
 exports.startDialog = function (bot) {
 
@@ -38,13 +39,16 @@ exports.startDialog = function (bot) {
     ).triggerAction({
         onFindAction: function(context, callback){
             var n = 0;
-            // console.log(context);
-            // console.log(context.intent);
-            if(context.intent != null){
+            console.log(context);
+            console.log(context.intent);
+
+            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "TurnOffHistory"){
                 if(context.intent.score < 0.9){
                     n = 1;
                 }
             }
+            lastIntent = context.intent.intent;
+            console.log("This is lastIntent : ******* " + lastIntent);
             callback(null, n);
         }
     });
@@ -84,6 +88,29 @@ exports.startDialog = function (bot) {
     }).triggerAction({
         matches: 'CurrencyExchange'
     });
+
+    bot.dialog('TurnOnHistory', [
+        function (session, args, next) {
+            session.dialogData.args = args || {};
+            if (!session.conversationData["username"]) {
+                builder.Prompts.text(session, "To turn on history recording, please enter your username: ");
+            } else {
+                next();
+            }
+        },
+        function (session, results, next) {
+            // if (!isAttachment(session)) {
+                if (results.response) {
+                    session.conversationData["username"] = results.response;
+                }
+                session.conversationData["isTurnedOn"] = true;
+                session.send("Great! We'll record your currency conversion now.");
+            // }
+        }
+    ]).triggerAction({
+        matches: 'TurnOnHistory'
+    });
+
 
     bot.dialog('Welcome', function (session, args){
         session.send('Welcome to use Consoto Bot!');

@@ -22,16 +22,42 @@ exports.postQnAResults = function getData(url, session, question, callback){
             console.log(response.statusCode);
         }
     });
-  };
+};
 
-  exports.getExchangeRate = function getData(url, session, amount, fromCurrency, toCurrency, callback){
-        // GET method
-        request.get(url, function(err, res, body){
-            if(err){
-                console.log(err);
-            }else {
-                callback(body, session, amount, fromCurrency, toCurrency);
-            }
-        });
+exports.getExchangeRate = function getData(url, session, amount, fromCurrency, toCurrency, callback){
+    // GET method
+    request.get(url, function(err, res, body){
+        if(err){
+            console.log(err);
+        }else {
+            callback(body, session, amount, fromCurrency, toCurrency);
+        }
+    });
+};
+
+exports.postHistory = function sendData(url, username, amount, fromCurrency, result, toCurrency){
+    var options = {
+        url: url,
+        method: 'POST',
+        headers: {
+            'ZUMO-API-VERSION': '2.0.0',
+            'Content-Type':'application/json'
+        },
+        json: {
+            "username" : username,
+            "amount" : amount,
+            "fromCurrency" : fromCurrency,
+            "result" : result,
+            "toCurrency" : toCurrency
+        }
     };
-  
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log(body);
+        }
+        else{
+            console.log(error);
+        }
+    });
+};

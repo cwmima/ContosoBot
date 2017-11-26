@@ -39,15 +39,17 @@ exports.startDialog = function (bot) {
     ).triggerAction({
         onFindAction: function(context, callback){
             var n = 0;
-            console.log(context);
+            // console.log(context);
             console.log(context.intent);
 
-            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "TurnOffHistory"){
+            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ClearHistory"){
                 if(context.intent.score < 0.9){
                     n = 1;
                 }
             }
-            lastIntent = context.intent.intent;
+            if (context.intent){
+                lastIntent = context.intent.intent;                
+            }
             console.log("This is lastIntent : ******* " + lastIntent);
             callback(null, n);
         }
@@ -104,13 +106,19 @@ exports.startDialog = function (bot) {
                     session.conversationData["username"] = results.response;
                 }
                 session.conversationData["isTurnedOn"] = true;
-                session.send("Great! We'll record your currency conversion now.");
+                session.send("Great! Your currency conversion history will be recorded now.");
             // }
         }
     ]).triggerAction({
         matches: 'TurnOnHistory'
     });
 
+    bot.dialog('TurnOffHistory', function(session, args){
+        session.conversationData["isTurnedOn"] = false;
+        session.send("History recording has been turned off.");
+    }).triggerAction({
+        matches: 'TurnOffHistory'
+    })
 
     bot.dialog('Welcome', function (session, args){
         session.send('Welcome to use Consoto Bot!');

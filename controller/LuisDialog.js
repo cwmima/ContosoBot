@@ -20,7 +20,7 @@ exports.startDialog = function (bot) {
                     .text("Welcome to use Contoso Bot! You can check the following hints on how to use this chat bot :)");
                     bot.send(greeting);
 
-                    bot.beginDialog(message.address, 'menu');
+                    bot.beginDialog(message.address, 'Menu');
                 }
             });
         }

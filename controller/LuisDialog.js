@@ -38,6 +38,7 @@ exports.startDialog = function (bot) {
                         {
                             "type": "TextBlock",
                             "text": "**\"convert NZD\"**",
+                            "wrap": true,
                             "size": "large"
                         },
                         {
@@ -55,26 +56,31 @@ exports.startDialog = function (bot) {
                         {
                             "type": "TextBlock",
                             "text": "-- convert NZD to USD",
+                            "wrap": true,
                             "size": "medium"
                         },
                         {
                             "type": "TextBlock",
                             "text": "**\"turn on/off history\"**",
+                            "wrap": true,
                             "size": "large"
                         },
                         {
                             "type": "TextBlock",
                             "text": "-- turn on/off history recording",
+                            "wrap": true,
                             "size": "medium"
                         },
                         {
                             "type": "TextBlock",
                             "text": "**\"show/clear history\"**",
+                            "wrap": true,
                             "size": "large"
                         },
                         {
                             "type": "TextBlock",
                             "text": "-- show/clear history recording",
+                            "wrap": true,
                             "size": "medium"
                         },
                         {

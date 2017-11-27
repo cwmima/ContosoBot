@@ -58,6 +58,7 @@ function handleHistoryResponse(message, session, username){
                 {
                     "type": "TextBlock",
                     "text": username + ", your history records are: ",
+                    "wrap": true,
                     "weight": "bolder",
                     "size": "large"
                 },

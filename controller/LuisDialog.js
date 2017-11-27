@@ -27,7 +27,71 @@ exports.startDialog = function (bot) {
     });
 
     bot.dialog('menu', function (session) {
-            session.send("This is the menu.");
+            // session.send("\"convert NZD\" \n\n* check the exchange rates list of NZD <br/><br/>\"convert NZD to USD\" \n\n* convert 1 NZD to USD \n\n \n\n\"convert 12.34 NZD to USD\" \n\n* convert 12.34 NZD to USD \n\n \n\nType \"menu\" or \"help\" to show this menu again.");
+            session.send(new builder.Message(session).addAttachment({
+                contentType: "application/vnd.microsoft.card.adaptive",
+                content: {
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "type": "AdaptiveCard",
+                    "version": "1.0",
+                    "body": [
+                        {
+                            "type": "TextBlock",
+                            "text": "**\"convert NZD\"**",
+                            "size": "large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "-- check the exchange rates list of NZD",
+                            "wrap": true,
+                            "size": "medium"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "**\"convert NZD to USD\"** or **\"convert 10.25 NZD to USD\"**" ,
+                            "wrap": true,
+                            "size": "large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "-- convert NZD to USD",
+                            "size": "medium"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "**\"turn on/off history\"**",
+                            "size": "large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "-- turn on/off history recording",
+                            "size": "medium"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "**\"show/clear history\"**",
+                            "size": "large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "-- show/clear history recording",
+                            "size": "medium"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "You can also ask me some general questions, I will try to answer it using my QnA database.",
+                            "wrap": true,
+                            "size": "medium"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Type **\"menu\"** or **\"help\"** to show this menu again.",
+                            "wrap": true,
+                            "size": "medium"
+                        }
+                    ]
+                }
+            }));
         }
     );
 
@@ -43,7 +107,7 @@ exports.startDialog = function (bot) {
             console.log(context.intent);
 
             if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ShowHistory" && lastIntent != "ClearHistory"){
-                if(context.intent.score < 0.9){
+                if(context.intent.score < 0.5){
                     n = 1;
                 }
             }

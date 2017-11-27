@@ -1,6 +1,7 @@
 var builder = require('botbuilder');
 var qna = require('./QnAMaker');
 var exchange = require('./ExchangeRateCard');
+var history = require('./HistoryCard');
 var lastIntent = "";
 
 exports.startDialog = function (bot) {
@@ -42,7 +43,7 @@ exports.startDialog = function (bot) {
             // console.log(context);
             console.log(context.intent);
 
-            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ClearHistory"){
+            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ShowHistory" && lastIntent != "ClearHistory"){
                 if(context.intent.score < 0.9){
                     n = 1;
                 }
@@ -120,8 +121,48 @@ exports.startDialog = function (bot) {
         matches: 'TurnOffHistory'
     })
 
+    bot.dialog('ShowHistory',  [
+        function (session, args, next) {
+            session.dialogData.args = args || {};
+            if (!session.conversationData["username"]) {
+                builder.Prompts.text(session, "To show your history, please enter your username: ");
+            } else {
+                next();
+            }
+        },
+        function (session, results, next) {
+                if (results.response) {
+                    session.conversationData["username"] = results.response;
+                }
+                history.showHistory(session, session.conversationData['username']); 
+                // session.send("Great! Your currency conversion history is all cleared.");
+        }
+    ]).triggerAction({
+        matches: 'ShowHistory'
+    })
+
+    bot.dialog('ClearHistory', [
+        function (session, args, next) {
+            session.dialogData.args = args || {};
+            if (!session.conversationData["username"]) {
+                builder.Prompts.text(session, "To clear your history, please enter your username: ");
+            } else {
+                next();
+            }
+        },
+        function (session, results, next) {
+                if (results.response) {
+                    session.conversationData["username"] = results.response;
+                }
+                history.clearHistory(session, session.conversationData['username']); 
+                session.send("Great! Your currency conversion history is all cleared.");
+        }
+    ]).triggerAction({
+        matches: 'ClearHistory'
+    });
+
     bot.dialog('Welcome', function (session, args){
-        session.send('Welcome to use Consoto Bot!');
+        session.send("Welcome to use Consoto Bot! Type \'menu\' or \'help\' to show the menu.");
     }).triggerAction({
         matches: 'Welcome'
     })

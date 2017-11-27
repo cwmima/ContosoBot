@@ -14,15 +14,15 @@ function handleHistoryResponse(message, session, username){
     var resultColumn = [];
     var toCurrencyColumn = [];
 
-    for (var index in historyResponse) {
-        var usernameReceived = historyResponse[index].username;
+    for (var i in historyResponse) {
+        var usernameReceived = historyResponse[i].username;
 
         if (username.toLowerCase() === usernameReceived.toLowerCase()) {
             
-            var amount = historyResponse[index].amount;
-            var fromCurrency = historyResponse[index].fromCurrency;
-            var result = historyResponse[index].result;
-            var toCurrency = historyResponse[index].toCurrency;
+            var amount = historyResponse[i].amount;
+            var fromCurrency = historyResponse[i].fromCurrency;
+            var result = historyResponse[i].result;
+            var toCurrency = historyResponse[i].toCurrency;
 
             var amountItem = {};
             amountItem.type = "TextBlock";
@@ -91,5 +91,19 @@ function handleHistoryResponse(message, session, username){
 }
 
 exports.clearHistory = function (session, username){
-    
+
+    rest.getHistory(databaseUrl, session, username, function (message, session, username){
+        // read the whole easy table
+        var historyResponse = JSON.parse(message);
+
+        for(var i in historyResponse) {
+            var usernameReceived = historyResponse[i].username;
+            var id = historyResponse[i].id;
+
+            if (usernameReceived === username) {
+                rest.clearHistory(databaseUrl, session, username, id);
+            }
+        }
+    });
+
 };

@@ -27,7 +27,6 @@ exports.startDialog = function (bot) {
     });
 
     bot.dialog('menu', function (session) {
-            // builder.Prompts.text(session, 'Hi! What is your name?');
             session.send("This is the menu.");
         }
     );
@@ -135,7 +134,6 @@ exports.startDialog = function (bot) {
                     session.conversationData["username"] = results.response;
                 }
                 history.showHistory(session, session.conversationData['username']); 
-                // session.send("Great! Your currency conversion history is all cleared.");
         }
     ]).triggerAction({
         matches: 'ShowHistory'

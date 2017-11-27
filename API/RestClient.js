@@ -63,11 +63,33 @@ exports.postHistory = function sendData(url, username, amount, fromCurrency, res
 };
 
 exports.getHistory = function getData(url, session, username, callback){
-    request.get(url, {'headers':{'ZUMO-API-VERSION': '2.0.0'}}, function(err,res,body){
-        if(err){
-            console.log(err);
-        }else {
-            callback(body, session, username);
+    request.get(url, {'headers' : {'ZUMO-API-VERSION': '2.0.0'}}, 
+        function(err, res, body){
+            if(err){
+                console.log(err);
+            }else {
+                callback(body, session, username);
+            }
         }
-    });
+    );
+};
+
+exports.clearHistory = function deleteData(url, session, username, id, callback){
+    var options = {
+        url: url + "\\" + id,
+        method: 'DELETE',
+        headers: {
+            'ZUMO-API-VERSION': '2.0.0',
+            'Content-Type':'application/json'
+        }
+    };
+    request(options, function (err, res, body){
+        if(!err && res.statusCode === 200){
+            console.log(body);
+            // callback(session, username);
+        }else {
+            console.log(err);
+            console.log(res);
+        }
+    })
 };

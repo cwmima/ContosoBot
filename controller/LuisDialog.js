@@ -26,80 +26,81 @@ exports.startDialog = function (bot) {
         }
     });
 
-    bot.dialog('menu', function (session) {
-            // session.send("\"convert NZD\" \n\n* check the exchange rates list of NZD <br/><br/>\"convert NZD to USD\" \n\n* convert 1 NZD to USD \n\n \n\n\"convert 12.34 NZD to USD\" \n\n* convert 12.34 NZD to USD \n\n \n\nType \"menu\" or \"help\" to show this menu again.");
-            session.send(new builder.Message(session).addAttachment({
-                contentType: "application/vnd.microsoft.card.adaptive",
-                content: {
-                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                    "type": "AdaptiveCard",
-                    "version": "1.0",
-                    "body": [
-                        {
-                            "type": "TextBlock",
-                            "text": "**\"convert NZD\"**",
-                            "wrap": true,
-                            "size": "large"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "-- check the exchange rates list of NZD",
-                            "wrap": true,
-                            "size": "medium"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "**\"convert NZD to USD\"** or **\"convert 10.25 NZD to USD\"**" ,
-                            "wrap": true,
-                            "size": "large"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "-- convert NZD to USD",
-                            "wrap": true,
-                            "size": "medium"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "**\"turn on/off history\"**",
-                            "wrap": true,
-                            "size": "large"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "-- turn on/off history recording",
-                            "wrap": true,
-                            "size": "medium"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "**\"show/clear history\"**",
-                            "wrap": true,
-                            "size": "large"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "-- show/clear history recording",
-                            "wrap": true,
-                            "size": "medium"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "You can also ask me some general questions, I will try to answer it using my QnA database.",
-                            "wrap": true,
-                            "size": "medium"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "Type **\"menu\"** or **\"help\"** to show this menu again.",
-                            "wrap": true,
-                            "size": "medium"
-                        }
-                    ]
-                }
-            }));
-        }
-    );
+    bot.dialog('Menu', function (session) {
+        session.send(new builder.Message(session).addAttachment({
+            contentType: "application/vnd.microsoft.card.adaptive",
+            content:
+            {
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "type": "AdaptiveCard",
+                "version": "1.0",
+                "body": [
+                    {
+                        "type": "TextBlock",
+                        "text": "**\"convert NZD\"**",
+                        "wrap": true,
+                        "size": "large"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "-- check the exchange rates list of NZD",
+                        "wrap": true,
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "**\"convert NZD to USD\"** or **\"convert 10.25 NZD to USD\"**" ,
+                        "wrap": true,
+                        "size": "large"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "-- convert NZD to USD",
+                        "wrap": true,
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "**\"turn on/off history\"**",
+                        "wrap": true,
+                        "size": "large"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "-- turn on/off history recording",
+                        "wrap": true,
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "**\"show/clear history\"**",
+                        "wrap": true,
+                        "size": "large"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "-- show/clear history recording",
+                        "wrap": true,
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "You can also ask me some general questions, I will try to answer it using my QnA database.",
+                        "wrap": true,
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Type **\"menu\"** or **\"help\"** to show this menu again.",
+                        "wrap": true,
+                        "size": "medium"
+                    }
+                ]
+            }
+        }));
+    }).triggerAction({
+        matches: 'Menu'
+    });
 
     bot.dialog('QnA', function (session, args, next) {
             //console.log(args["intent"]['score']);
@@ -118,7 +119,7 @@ exports.startDialog = function (bot) {
                 }
             }
             if (context.intent){
-                lastIntent = context.intent.intent;                
+                lastIntent = context.intent.intent;
             }
             console.log("This is lastIntent : ******* " + lastIntent);
             callback(null, n);

@@ -42,6 +42,12 @@ exports.startDialog = function (bot) {
                 "version": "1.0",
                 "body": [
                     {
+                        "type": "Image",
+                        "url": "https://vignette.wikia.nocookie.net/mobius-paradox/images/6/68/Contoso_logo.jpg/revision/latest?cb=20150621174845",
+                        "size": "large",
+                        "horizontalAlignment": "center"
+                    },
+                    {
                         "type": "TextBlock",
                         "text": "**\"convert NZD\"**",
                         "wrap": true,

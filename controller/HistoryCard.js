@@ -13,6 +13,7 @@ function handleHistoryResponse(message, session, username){
     var fromCurrencyColumn = [];
     var resultColumn = [];
     var toCurrencyColumn = [];
+    var dateColumn = [];
 
     for (var i in historyResponse) {
         var usernameReceived = historyResponse[i].username;
@@ -23,6 +24,7 @@ function handleHistoryResponse(message, session, username){
             var fromCurrency = historyResponse[i].fromCurrency;
             var result = historyResponse[i].result;
             var toCurrency = historyResponse[i].toCurrency;
+            var date = historyResponse[i].date;
 
             var amountItem = {};
             amountItem.type = "TextBlock";
@@ -45,6 +47,11 @@ function handleHistoryResponse(message, session, username){
             toCurrencyItem.text = toCurrency || "-";
             toCurrencyItem.weight = "bolder";
             toCurrencyColumn.push(toCurrencyItem);
+
+            var dateItem = {};
+            dateItem.type = "TextBlock";
+            dateItem.text = date || "-";
+            dateColumn.push(dateItem);
         }
     }
 
@@ -84,6 +91,11 @@ function handleHistoryResponse(message, session, username){
                             "type": "Column",
                             "width": "auto",
                             "items": toCurrencyColumn
+                        },
+                        {
+                            "type": "Column",
+                            "width": "auto",
+                            "items": dateColumn
                         },
                     ]
                 }

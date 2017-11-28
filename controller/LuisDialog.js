@@ -3,6 +3,8 @@ var qna = require('./QnAMaker');
 var exchange = require('./ExchangeRateCard');
 var history = require('./HistoryCard');
 var lastIntent = "";
+var today = new Date();
+var date = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 
 exports.startDialog = function (bot) {
 
@@ -27,6 +29,10 @@ exports.startDialog = function (bot) {
     });
 
     bot.dialog('Menu', function (session) {
+        // session.say('Please hold while I calculate a response.', 
+        // 'Please hold while I calculate a response.', 
+        // { inputHint: builder.InputHint.ignoringInput }
+        // );
         session.send(new builder.Message(session).addAttachment({
             contentType: "application/vnd.microsoft.card.adaptive",
             content:
@@ -144,15 +150,15 @@ exports.startDialog = function (bot) {
                             session.send("The amount of currency is not a number. Please try again.");
                         }else{
                             session.send('Converting %s %s to %s...', amount, fromCurrency, toCurrency);
-                            exchange.displayExchangeRateCard(session, amount, fromCurrency, toCurrency);
+                            exchange.displayExchangeRateCard(session, amount, fromCurrency, toCurrency, date);
                         }
                     }else{
                         session.send('Converting %s to %s...', fromCurrency, toCurrency);
-                        exchange.displayExchangeRateCard(session, 1, fromCurrency, toCurrency);
+                        exchange.displayExchangeRateCard(session, 1, fromCurrency, toCurrency, date);
                     }
                 }else{
                     session.send('Looking up exchange rates of %s...', fromCurrency);
-                    exchange.displayExchangeRateCard(session, 1, fromCurrency, null);
+                    exchange.displayExchangeRateCard(session, 1, fromCurrency, null, date);
                 }
             } else {
                 session.send("No currency code identified! Please try again.");

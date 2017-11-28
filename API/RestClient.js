@@ -24,18 +24,18 @@ exports.postQnAResults = function getData(url, session, question, callback){
     });
 };
 
-exports.getExchangeRate = function getData(url, session, amount, fromCurrency, toCurrency, callback){
+exports.getExchangeRate = function getData(url, session, amount, fromCurrency, toCurrency, date, callback){
     // GET method
     request.get(url, function(err, res, body){
         if(err){
             console.log(err);
         }else {
-            callback(body, session, amount, fromCurrency, toCurrency);
+            callback(body, session, amount, fromCurrency, toCurrency, date);
         }
     });
 };
 
-exports.postHistory = function sendData(url, username, amount, fromCurrency, result, toCurrency){
+exports.postHistory = function sendData(url, username, amount, fromCurrency, result, toCurrency, date){
     var options = {
         url: url,
         method: 'POST',
@@ -48,7 +48,8 @@ exports.postHistory = function sendData(url, username, amount, fromCurrency, res
             "amount" : amount,
             "fromCurrency" : fromCurrency,
             "result" : result,
-            "toCurrency" : toCurrency
+            "toCurrency" : toCurrency,
+            "date": date
         }
     };
 

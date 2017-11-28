@@ -2,13 +2,13 @@ var rest = require('../API/RestClient');
 var builder = require('botbuilder');
 var databaseUrl = "http://contosobotgavin.azurewebsites.net/tables/ContosoBot";
 
-exports.displayExchangeRateCard = function (session, amount, fromCurrency, toCurrency){
+exports.displayExchangeRateCard = function (session, amount, fromCurrency, toCurrency, date){
     var url = "https://api.fixer.io/latest?base=" + fromCurrency;
 
-    rest.getExchangeRate(url, session, amount, fromCurrency, toCurrency, displayExchangeRateCard);
+    rest.getExchangeRate(url, session, amount, fromCurrency, toCurrency, date, displayExchangeRateCard);
 }
 
-function displayExchangeRateCard(message, session, amount, fromCurrency, toCurrency){
+function displayExchangeRateCard(message, session, amount, fromCurrency, toCurrency, date){
 
     var exchangeRateList = JSON.parse(message).rates;    
 
@@ -18,7 +18,7 @@ function displayExchangeRateCard(message, session, amount, fromCurrency, toCurre
 
         // check if history recording is turned on
         if (session.conversationData["isTurnedOn"]){
-            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, result, toCurrency);
+            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, result, toCurrency, date);
         }
         
         session.send(new builder.Message(session).addAttachment({
@@ -49,7 +49,7 @@ function displayExchangeRateCard(message, session, amount, fromCurrency, toCurre
 
         // check if history recording is turned on
         if (session.conversationData["isTurnedOn"]){
-            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, null, null);
+            rest.postHistory(databaseUrl, session.conversationData["username"], amount, fromCurrency, null, null, date);
         }
 
         var currencies = [];

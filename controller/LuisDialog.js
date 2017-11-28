@@ -116,10 +116,10 @@ exports.startDialog = function (bot) {
     ).triggerAction({
         onFindAction: function(context, callback){
             var n = 0;
-            // console.log(context);
+            console.log(context);
             console.log(context.intent);
 
-            if(context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ShowHistory" && lastIntent != "ClearHistory"){
+            if((context.intent != null && lastIntent != "TurnOnHistory" && lastIntent != "ShowHistory" && lastIntent != "ClearHistory") || (context.intent != null && context.conversationData["username"])){
                 if(context.intent.score < 0.5){
                     n = 1;
                 }
